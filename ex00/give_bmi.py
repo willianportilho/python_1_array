@@ -1,8 +1,15 @@
 import numpy as np
 
 
-# checks if lst is a list of int or float and not empty
 def is_numeric_list(lst: list[int | float]) -> bool:
+    """Checks if all elements in the list are numeric (int or float).
+
+Parameters:
+    lst: list[int | float]: The list to be checked.
+
+Returns:
+    bool: True if all elements are numeric, False otherwise.
+    """
     for item in lst:
         if not isinstance(item, (int, float)):
             return False
@@ -10,12 +17,28 @@ def is_numeric_list(lst: list[int | float]) -> bool:
 
 
 def is_nonempty_list(lst: list[int | float]) -> bool:
+    """Checks if the input is a non-empty list.
+
+Parameters:
+    lst: list[int | float]: The list to be checked.
+
+Returns:
+    bool: True if lst is a non-empty list, False otherwise.
+    """
     if not isinstance(lst, list) or len(lst) == 0:
         return False
     return True
 
 
 def check_overflow(num: int | float) -> bool:
+    """Checks if a number is infinite or NaN.
+
+Parameters:
+    num (int | float): The number to be checked.
+
+Returns:
+    bool: True if num is infinite or NaN, False otherwise.
+    """
     arr = np.array([num], dtype=np.float64)
     if np.isinf(arr[0]) or np.isnan(arr[0]):
         return True
@@ -23,10 +46,26 @@ def check_overflow(num: int | float) -> bool:
 
 
 def is_positive_number(num: int | float) -> bool:
+    """Checks if a number is positive.
+
+Parameters:
+    num (int | float): The number to be checked.
+
+Returns:
+    bool: True if num is positive, False otherwise.
+    """
     return num > 0
 
 
 def are_all_positive_numbers(lst: list[int | float]) -> bool:
+    """Checks if all elements in the list are positive numbers.
+
+Parameters:
+    lst (list[int | float]): The list to be checked.
+
+Returns:
+    bool: True if all elements are positive numbers, False otherwise.
+    """
     for item in lst:
         if not is_positive_number(item):
             return False
@@ -34,11 +73,27 @@ def are_all_positive_numbers(lst: list[int | float]) -> bool:
 
 
 def is_int_type(num: int) -> bool:
+    """Checks if a number is of integer type.
+
+Parameters:
+    num (int): The number to be checked.
+
+Returns:
+    bool: True if num is an integer, False otherwise.
+    """
     return isinstance(num, int)
 
 
-# checks if two lists have the same length
 def check_lists_length(lst1: list, lst2: list) -> bool:
+    """Checks if two lists have the same length.
+
+Parameters:
+    lst1 (list): The first list.
+    lst2 (list): The second list.
+
+Returns:
+    bool: True if both lists have the same length, False otherwise.
+    """
     return len(lst1) == len(lst2)
 
 
@@ -46,7 +101,16 @@ def give_bmi(
         height: list[int | float],
         weight: list[int | float]
         ) -> list[int | float]:
+    """Calculates the Body Mass Index (BMI) for each pair of height and weight.
 
+Parameters:
+    height (list[int | float]): A list of heights in meters.
+    weight (list[int | float]): A list of weights in kilograms.
+
+Returns:
+    list[int | float]: A list of BMI values calculated using the formula:
+        BMI = weight / (height ** 2)
+    """
     try:
         if is_nonempty_list(height) is False:
             raise ValueError("Height list must be non-empty")
@@ -90,7 +154,17 @@ def apply_limit(
         bmi: list[int | float],
         limit: int
         ) -> list[bool]:
+    """Applies a limit to the BMI values and returns a list of booleans
+indicating whether each BMI value exceeds the limit.
 
+Parameters:
+    bmi (list[int | float]): A list of BMI values.
+    limit (int): The BMI limit to compare against.
+
+Returns:
+    list[bool]: A list of booleans where each element is True if the
+        corresponding BMI value exceeds the limit, and False otherwise.
+    """
     try:
         if is_nonempty_list(bmi) is False:
             raise ValueError("BMI list must be non-empty")
@@ -119,6 +193,14 @@ def apply_limit(
 
 
 def main():
+    """Main function for convention only.
+
+Parameters:
+    None
+
+Returns:
+    None
+    """
     pass
 
 
