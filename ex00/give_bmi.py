@@ -1,6 +1,18 @@
 import numpy as np
 
 
+def is_instance_of_list(obj: object) -> bool:
+    """Checks if the object is an instance of list.
+
+Parameters:
+    obj (object): The object to be checked.
+Returns:
+    bool: True if obj is a list, False otherwise.
+    """
+    if not isinstance(obj, list):
+        return False
+
+
 def is_numeric_list(lst: list[int | float]) -> bool:
     """Checks if all elements in the list are numeric (int or float).
 
@@ -16,7 +28,7 @@ Returns:
     return True
 
 
-def is_nonempty_list(lst: list[int | float]) -> bool:
+def is_non_empty_list(lst: list[int | float]) -> bool:
     """Checks if the input is a non-empty list.
 
 Parameters:
@@ -112,9 +124,13 @@ Returns:
         BMI = weight / (height ** 2)
     """
     try:
-        if is_nonempty_list(height) is False:
+        if is_instance_of_list(height) is False:
+            raise ValueError("Height must be a list")
+        if is_instance_of_list(weight) is False:
+            raise ValueError("Weight must be a list")
+        if is_non_empty_list(height) is False:
             raise ValueError("Height list must be non-empty")
-        if is_nonempty_list(weight) is False:
+        if is_non_empty_list(weight) is False:
             raise ValueError("Weight list must be non-empty")
         if is_numeric_list(height) is False:
             raise ValueError("Height list must contain only numbers")
@@ -166,7 +182,9 @@ Returns:
         corresponding BMI value exceeds the limit, and False otherwise.
     """
     try:
-        if is_nonempty_list(bmi) is False:
+        if is_instance_of_list(bmi) is False:
+            raise ValueError("BMI must be a list")
+        if is_non_empty_list(bmi) is False:
             raise ValueError("BMI list must be non-empty")
         if is_numeric_list(bmi) is False:
             raise ValueError("BMI list must contain only numbers")
@@ -204,7 +222,7 @@ Parameters:
 Returns:
     None
     """
-    print("=== Testing give_bmi function... ===")
+    print("=== TESTING GIVE BMI FUNCTION ===")
     # ✅ Valid case
     heights = [1.75, 1.80, 1.65]
     weights = [70, 80, 60]
@@ -212,6 +230,14 @@ Returns:
     if bmi != [22.857142857142858, 24.691358024691358, 22.03856749311295]:
         raise AssertionError("Valid case: BMI calculation is failed")
     print("✅ Valid case passed:", bmi)
+
+    # ❌ Is not a list case
+    try:
+        give_bmi("not a list", [50])
+    except ValueError as e:
+        print("✅ Not a list detected:", e)
+    else:
+        raise AssertionError("Not a list: Did not fail as expected")
 
     # ❌ Empty list case
     try:
@@ -263,12 +289,20 @@ Parameters:
 Returns:
     None
     """
-    print("\n=== Testing apply limit function... ===")
+    print("\n=== TESTING APPLY LIMIT FUNCTION ===")
     bmi = [22.5, 29.0, 15.2]
 
     # ✅ Valid case
     if apply_limit(bmi, 25) != [False, True, False]:
         raise AssertionError("Valid case: Limit application is failed")
+    
+    # ❌ Is not a list case
+    try:
+        apply_limit("not a list", 25)
+    except ValueError as e:
+        print("✅ Not a list detected:", e)
+    else:
+        raise AssertionError("Not a list: Did not fail as expected")
 
     # ❌ Empty list case
     try:
