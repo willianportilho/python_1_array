@@ -192,8 +192,11 @@ Returns:
         raise RuntimeError(f"An error occurred: {e}")
 
 
-def main():
-    """Main function for convention only.
+# --- Test functions -- #
+
+
+def test_give_bmi():
+    """Tests for the give_bmi function.
 
 Parameters:
     None
@@ -201,7 +204,134 @@ Parameters:
 Returns:
     None
     """
-    pass
+    print("=== Testing give_bmi function... ===")
+    # ✅ Valid case
+    heights = [1.75, 1.80, 1.65]
+    weights = [70, 80, 60]
+    bmi = give_bmi(heights, weights)
+    if bmi != [22.857142857142858, 24.691358024691358, 22.03856749311295]:
+        raise AssertionError("Valid case: BMI calculation is failed")
+    print("✅ Valid case passed:", bmi)
+
+    # ❌ Empty list case
+    try:
+        give_bmi([], [50])
+    except ValueError as e:
+        print("✅ Empty list detected:", e)
+    else:
+        raise AssertionError("Empty list: Did not fail as expected")
+
+    # ❌ Non-numeric values case
+    try:
+        give_bmi([1.8, 'a'], [80, 50])
+    except ValueError as e:
+        print("✅ Non-numeric values detected:", e)
+    else:
+        raise AssertionError("Non-numeric values: Did not fail as expected")
+
+    # ❌ Different lengths case
+    try:
+        give_bmi([1.8, 1.75], [80])
+    except ValueError as e:
+        print("✅ Different lengths detected:", e)
+    else:
+        raise AssertionError("Different lengths: Did not fail as expected")
+
+    # ❌ Negative values case
+    try:
+        give_bmi([1.8, -1.75], [80, 50])
+    except ValueError as e:
+        print("✅ Negative values detected:", e)
+    else:
+        raise AssertionError("Negative values: Did not fail as expected")
+
+    # ❌ Overflow case
+    try:
+        give_bmi([np.inf, 1.75], [80, 50])
+    except OverflowError as e:
+        print("✅ Overflow detected:", e)
+    else:
+        raise AssertionError("Overflow: Did not fail as expected")
+
+
+def test_appy_limit():
+    """Tests for the apply_limit function.
+
+Parameters:
+    None
+
+Returns:
+    None
+    """
+    print("\n=== Testing apply limit function... ===")
+    bmi = [22.5, 29.0, 15.2]
+
+    # ✅ Valid case
+    if apply_limit(bmi, 25) != [False, True, False]:
+        raise AssertionError("Valid case: Limit application is failed")
+
+    # ❌ Empty list case
+    try:
+        apply_limit([], 25)
+    except ValueError as e:
+        print("✅ Empty list detected:", e)
+    else:
+        raise AssertionError("Empty list: Did not fail as expected")
+
+    # ❌ Non-numeric values case
+    try:
+        apply_limit([22.5, 'a'], 25)
+    except ValueError as e:
+        print("✅ Non-numeric values detected:", e)
+    else:
+        raise AssertionError("Non-numeric values: Did not fail as expected")
+
+    # ❌ 'limit' is not a integer
+    try:
+        apply_limit([22.5, 29.0], 25.5)
+    except TypeError as e:
+        print("✅ 'limit' is not an integer detected:", e)
+    else:
+        raise AssertionError("'limit' is not an int: Did not fail as expected")
+
+    # ❌ Negative 'limit' case
+    try:
+        apply_limit([22.5, 29.0], -25)
+    except ValueError as e:
+        print("✅ Negative 'limit' detected:", e)
+    else:
+        raise AssertionError("Negative 'limit': Did not fail as expected")
+
+    # ❌ Overflow case for bmi values
+    try:
+        apply_limit([np.inf, 29.0], 25)
+    except OverflowError as e:
+        print("✅ Overflow in bmi values detected:", e)
+    else:
+        raise AssertionError("Overflow in bmi: Did not fail as expected")
+
+
+def main():
+    """Main function to run tests for give_bmi and apply_limit functions \
+and handle test exceptions.
+
+Parameters:
+    None
+
+Returns:
+    None
+    """
+    tests = [test_give_bmi, test_appy_limit]
+
+    for test_func in tests:
+        try:
+            test_func()
+        except AssertionError as ae:
+            print(f"❌ {test_func.__name__} assertion failed: {ae}")
+        except Exception as e:
+            print(f"❌ {test_func.__name__} unexpected exception: {e}")
+        else:
+            print(f"✅ All tests in {test_func.__name__} passed successfully.")
 
 
 if __name__ == "__main__":
