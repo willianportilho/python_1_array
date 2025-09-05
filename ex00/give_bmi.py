@@ -295,7 +295,7 @@ Returns:
     # ✅ Valid case
     if apply_limit(bmi, 25) != [False, True, False]:
         raise AssertionError("Valid case: Limit application is failed")
-    
+
     # ❌ Is not a list case
     try:
         apply_limit("not a list", 25)
