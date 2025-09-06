@@ -6,8 +6,12 @@ import cv2
 def zoom(img: np.ndarray, size: int) -> np.ndarray:
     height, width = img.shape[:2]
     zoom_size = min(size, height, width)
-    start_h = max(0, (height - zoom_size) // 2)
-    start_w = max(0, (width - zoom_size) // 2)
+
+    offset_w = 135
+    offset_h = 85
+
+    start_h = max(0, (height - zoom_size) // 2 - offset_h)
+    start_w = max(0, (width - zoom_size) // 2 + offset_w)
     end_h = start_h + zoom_size
     end_w = start_w + zoom_size
     
@@ -24,7 +28,8 @@ def rgb_to_gray(img: np.ndarray) -> np.ndarray:
 
 
 def print_zoom_info(zoomed_img: np.ndarray):
-    print(f"New shape after slicing: {zoomed_img.shape} or ({zoomed_img.shape[0]}, {zoomed_img.shape[1]})")
+    if len(zoomed_img.shape) > 1:
+        print(f"New shape after slicing: {zoomed_img.shape} or ({zoomed_img.shape[0]}, {zoomed_img.shape[1]})")
     print(zoomed_img)
 
 
