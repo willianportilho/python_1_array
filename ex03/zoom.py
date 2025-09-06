@@ -65,8 +65,9 @@ Returns:
     """
     if zoomed_img.ndim not in [2, 3]:
         raise ValueError("Invalid image dimensions")
-    print(f"New shape after slicing: ", end="")
-    print(f"{zoomed_img.shape} or ({zoomed_img.shape[0]}, {zoomed_img.shape[1]})")
+    print("New shape after slicing: ", end="")
+    print(f"{zoomed_img.shape} or (", end="")
+    print(f"{zoomed_img.shape[0]}, {zoomed_img.shape[1]})")
     print(zoomed_img)
 
 
