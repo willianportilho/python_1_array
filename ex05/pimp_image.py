@@ -95,7 +95,8 @@ using only division (/).
     """
     try:
         validate_array(array)
-        channels = np.stack([array[:, :, 0], array[:, :, 1], array[:, :, 2]], axis=-1)
+        channels = np.stack(
+            [array[:, :, 0], array[:, :, 1], array[:, :, 2]], axis=-1)
         grey = (channels / 3).mean(axis=-1)
         grey = grey.astype(np.uint8)
         grey_img = np.stack([grey, grey, grey], axis=-1)
