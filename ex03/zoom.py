@@ -7,7 +7,7 @@ def zoom(img: np.ndarray, size: int) -> np.ndarray:
     """Central crop (zoom) of the input image with optional offsets.
 
 Parameters:
-    img (np.ndarray): Input image array (H, W) grayscale or (H, W, C) color.
+    img (np.ndarray): Input image array (H, W).
     size (int): Size of the square crop.
 
 Returns:
@@ -177,7 +177,7 @@ Returns:
         show_image(zoomed_gray)
 
     except Exception as e:
-        print(f"unexpected exception: {e}")
+        print(f"Exception: Zoom Program: {e}")
     finally:
         cv2.destroyAllWindows()
         print("\nProgram ended...")

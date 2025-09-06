@@ -29,7 +29,7 @@ in case of failure.
         try:
             img = Image.open(path)
         except Exception:
-            raise ValueError(f"Cannot identify or corrupted file '{path}'")
+            raise AssertionError(f"Cannot find or corrupted file '{path}'")
 
         if img.format not in ("JPEG", "JPG"):
             raise ValueError("The file is not a JPEG or JPG image")
@@ -43,7 +43,8 @@ in case of failure.
 
         return img_array
 
-    except (FileNotFoundError, IOError, ValueError, TypeError) as e:
+    except (FileNotFoundError, IOError, ValueError, TypeError, AssertionError
+            ) as e:
         print(f"Error: {e}")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
@@ -83,7 +84,7 @@ Returns:
                 print(f"❌ Unexpected behavior!: path: {path}\n")
 
     except Exception as e:
-        print(f"unexpected exception: {e}")
+        print(f"Exception: {e}")
 
 
 if __name__ == "__main__":
