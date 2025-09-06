@@ -75,7 +75,7 @@ Returns
     """
     if img is None or img.size == 0:
         raise ValueError("Invalid image format to transpose")
-    
+
     height, width = img.shape[:2]
     transposed = np.zeros((width, height), dtype=img.dtype)
     for i in range(height):
@@ -183,10 +183,10 @@ Returns:
         img = ft_load(file_path)
         if img is None:
             raise FileNotFoundError(f"Failed to load image: {file_path}")
-        
+
         square_img = cut(img, 400)
         gray = rgb_to_gray(square_img)
-        print("The shape of image is: " + \
+        print("The shape of image is: " +
               f"{gray.shape} or ({gray.shape[0]}, {gray.shape[1]})")
         print(gray)
 
@@ -195,7 +195,7 @@ Returns:
         print(f"New shape after Transpose: {transposed.shape}")
         print(transposed)
         show_image(transposed)
-        
+
     except Exception as e:
         print(f"Exception: Rotate Program: {e}")
     finally:
