@@ -55,6 +55,26 @@ def transpose(img: np.ndarray) -> np.ndarray:
             transposed[j][i] = img[i][j]
     return transposed
 
+def show_image(img: np.ndarray):
+    """Displays an image in a window with OpenCV and \
+handles user interruptions.
+
+Parameters:
+    img (np.ndarray): Input image to display.
+
+Returns:
+    None
+    """
+    try:
+        cv2.imshow("animal", img)
+        cv2.waitKey(0)
+    except KeyboardInterrupt:
+        print("\nRotate Program: Operation cancelled by user (Ctrl+C).")
+    except cv2.error as e:
+        print(f"Rotate Program: OpenCV error: {e}")
+    finally:
+        cv2.destroyAllWindows()
+
 
 def main():
     """Main function to load an image, slices, convert to grayscale, \
@@ -82,6 +102,7 @@ Returns:
         transposed = transpose(gray)
         print(f"New shape after Transpose: {transposed.shape}")
         print(transposed)
+        show_image(transposed)
         
     except Exception as e:
         print(f"Exception: Rotate Program: {e}")

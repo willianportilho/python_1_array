@@ -147,9 +147,9 @@ Returns:
         cv2.imshow("animal", draw_axes_outside(img))
         cv2.waitKey(0)
     except KeyboardInterrupt:
-        print("Operation cancelled by user (Ctrl+C).")
+        print("Zoom Program: Operation cancelled by user (Ctrl+C).")
     except cv2.error as e:
-        print(f"OpenCV error: {e}")
+        print(f"Zoom Program: OpenCV error: {e}")
     finally:
         cv2.destroyAllWindows()
 
