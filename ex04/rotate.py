@@ -4,6 +4,24 @@ import cv2
 
 
 def cut(img: np.ndarray, size: int) -> np.ndarray:
+    """
+Crops a square region from the input image with optional offsets.
+
+Parameters
+    img : np.ndarray
+        Input image as a NumPy array in (H, W, C) format, where H is height,
+W is width, and C is the number of channels (e.g., 3 for RGB).
+    size : int
+        Desired size of the square crop. The actual crop size will be the \
+minimum of this value and the image dimensions.
+
+Returns
+    np.ndarray
+        Cropped image as a NumPy array. The output shape will be \
+(crop_size, crop_size, C),
+        where crop_size is determined by the minimum of `size` and the image \
+dimensions.
+    """
     height, width = img.shape[:2]
     zoom_size = min(size, height, width)
 
@@ -45,6 +63,16 @@ grayscale.
 
 
 def transpose(img: np.ndarray) -> np.ndarray:
+    """Transposes a 2D image array (flips rows and columns).
+
+Parameters
+    img : np.ndarray
+        Input image as a 2D NumPy array.
+
+Returns
+    np.ndarray
+        Transposed image as a 2D NumPy array.
+    """
     if img is None or img.size == 0:
         raise ValueError("Invalid image format to transpose")
     
